@@ -1,0 +1,52 @@
+{{- if .Values.mongo.enabled }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "streamingapp.fullname" . }}-mongo
+  labels:
+    {{- include "streamingapp.labels" . | nindent 4 }}
+spec:
+  serviceName: mongo
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: mongo
+      {{- include "streamingapp.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: mongo
+        {{- include "streamingapp.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: mongo
+          image: "{{ .Values.mongo.image.repository }}:{{ .Values.mongo.image.tag }}"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: mongo
+              containerPort: {{ .Values.mongo.service.port }}
+          volumeMounts:
+            - name: data
+              mountPath: /data/db
+  volumeClaimTemplates:
+    {{- if .Values.mongo.persistence.enabled }}
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: {{ .Values.mongo.persistence.size }}
+        {{- if .Values.mongo.persistence.storageClassName }}
+        storageClassName: {{ .Values.mongo.persistence.storageClassName | quote }}
+        {{- end }}
+    {{- else }}
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
+    {{- end }}
+{{- end }}
