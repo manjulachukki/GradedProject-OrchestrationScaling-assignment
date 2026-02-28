@@ -11,21 +11,22 @@ app:
 services:
   auth:
     image:
-      repository: "975050024946.dkr.ecr.ap-south-1.amazonaws.com/streamingapp-auth"
+      repository: "dummy.ecr.ap-south-1.amazonaws.com/streamingapp-auth"
       tag: "4"
   streaming:
     image:
-      repository: "975050024946.dkr.ecr.ap-south-1.amazonaws.com/streamingapp-streaming"
+      repository: "dummy.dkr.ecr.ap-south-1.amazonaws.com/streamingapp-streaming"
       tag: "4"
   admin:
     image:
-      repository: "975050024946.dkr.ecr.ap-south-1.amazonaws.com/streamingapp-admin"
+      repository: "dummy.dkr.ecr.ap-south-1.amazonaws.com/streamingapp-admin"
       tag: "4"
   chat:
     image:
-      repository: "975050024946.dkr.ecr.ap-south-1.amazonaws.com/streamingapp-chat"
+      repository: "dummy.dkr.ecr.ap-south-1.amazonaws.com/streamingapp-chat"
       tag: "4"
   frontend:
     image:
-      repository: "975050024946.dkr.ecr.ap-south-1.amazonaws.com/streamingapp-frontend"
+      repository: "dummy.dkr.ecr.ap-south-1.amazonaws.com/streamingapp-frontend"
       tag: "4"
+
